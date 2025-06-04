@@ -6,7 +6,7 @@ services:
       context: ./docker
       dockerfile: frontend.Dockerfile
     tty: true
-    command: "sh -c '/home/frontend/bin/init.sh'"
+    command: "sh -c 'bash /home/frontend/bin/init.sh'"
     ports:
       - "3000:3000"
     volumes:
