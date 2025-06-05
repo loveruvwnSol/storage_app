@@ -50,7 +50,7 @@ export const RegisterForm = () => {
       </div>
       <div>
         <Button
-          label="Sign up"
+          label="サインアップ"
           onClick={(e) => {
             if (!name || !email || !password) {
               alert("すべての項目を入力してください");

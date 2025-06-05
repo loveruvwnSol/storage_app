@@ -47,7 +47,7 @@ export const LoginForm = () => {
 
       <div>
         <Button
-          label="Sign in"
+          label="サインイン"
           onClick={(e) => {
             if (!email || !password) {
               alert("すべての項目を入力してください");
