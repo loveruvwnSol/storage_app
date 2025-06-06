@@ -1,3 +1,4 @@
+import { csrfCookie } from "@/api/csrfCookie";
 import { API_ROUTE, apiAxios } from "@/consts/api";
 import { User } from "@/types/user";
 import { useRouter } from "next/navigation";
@@ -13,6 +14,7 @@ export const useCurrentUser = () => {
 
   const getUser = async () => {
     try {
+      await csrfCookie();
       const response = await apiAxios.get(API_ROUTE.GET_USER.PATH);
       if (response.status === 200) {
         setUser(response.data);
