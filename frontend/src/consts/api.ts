@@ -26,6 +26,14 @@ export const API_ROUTE: { [name: string]: ApiRoute } = {
     PATH: "/api/user",
     METHOD: "GET",
   },
+  GET_MEDIA: {
+    PATH: "/api/media",
+    METHOD: "GET",
+  },
+  UPLOAD_MEDIA: {
+    PATH: "/api/media",
+    METHOD: "POST",
+  },
 } as const;
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;

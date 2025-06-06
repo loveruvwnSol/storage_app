@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    route::post("/signout", [UserController::class, "logout"]);
+    Route::post("/signout", [UserController::class, "logout"]);
+    Route::get("/media", [MediaController::class, "getMedia"]);
+    Route::post("/media", [MediaController::class, "upload"]);
 });
 
-Route::post("/signin", [UserController::class, "login"])->name("user.login");
-Route::post("/signup", [UserController::class, "create"])->name("user.registration");
+Route::post("/signin", [UserController::class, "login"]);
+Route::post("/signup", [UserController::class, "create"]);
