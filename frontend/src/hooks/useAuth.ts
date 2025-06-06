@@ -23,6 +23,7 @@ export const useAuth = () => {
 
   const signup = async (name: string, email: string, password: string) => {
     try {
+      await csrfCookie();
       const response = await apiAxios.post(API_ROUTE.SIGNUP.PATH, {
         name: name,
         email: email,
@@ -39,6 +40,7 @@ export const useAuth = () => {
 
   const signout = async () => {
     try {
+      await csrfCookie();
       const response = await apiAxios.post(API_ROUTE.SIGNOUT.PATH);
       if (response.status === 200) {
         router.push("/signin");
