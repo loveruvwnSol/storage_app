@@ -1,13 +1,16 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
+import { Input } from "@/components/atoms/Input";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useMedia } from "@/hooks/useMedia";
 import Image from "next/image";
 
 export default function Home() {
   const { user } = useCurrentUser();
   const { signout } = useAuth();
+  const { media, uploadMedia } = useMedia();
 
   if (!user) {
     return;
@@ -24,6 +27,15 @@ export default function Home() {
           height={38}
           priority
         />
+        {media.map((e, idx) => (
+          <img
+            key={idx}
+            src={e.media_url}
+            width={200}
+            height={200}
+            style={{ objectFit: "cover", margin: "10px" }}
+          />
+        ))}
         <p>Welcome to storage app, {user.name}</p>
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2 tracking-[-.01em]">
@@ -63,6 +75,13 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <Input
+          type="file"
+          onChange={(e) => {
+            e.preventDefault();
+            if (e.target.files?.[0]) uploadMedia(e.target.files?.[0]);
+          }}
+        />
         <Button
           label="Sign out"
           onClick={(e) => {
