@@ -22,8 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("/signout", [UserController::class, "logout"]);
-    Route::get("/media", [MediaController::class, "getMedia"]);
-    Route::post("/media", [MediaController::class, "upload"]);
+    Route::prefix("/media")->group(function () {
+        Route::get("/", [MediaController::class, "getMedia"]);
+        Route::post("/", [MediaController::class, "upload"]);
+        Route::delete("/{id}", [MediaController::class, "deleteMedia"]);
+    });
 });
 
 Route::post("/signin", [UserController::class, "login"]);

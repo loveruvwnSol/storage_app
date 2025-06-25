@@ -3,6 +3,7 @@
 namespace App\Repositories\Media;
 
 use App\Models\Media;
+use App\Repositories\Media\Exception\FailedDeleteMediaException;
 use App\Repositories\Media\Exception\FailedGetMediaException;
 use App\Repositories\Media\Exception\FailedUploadMediaException;
 use App\Repositories\Media\Exception\FailedUploadMediaForMinIOException;
@@ -12,12 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaRepository implements MediaRepositoryInterface
 {
-
-    /**
-     * @throws FailedUploadMediaException
-     *
-     * @return void
-     */
     public function upload($file): Media
     {
         $userID = auth()->id();
@@ -60,5 +55,30 @@ class MediaRepository implements MediaRepositoryInterface
         }
 
         return $media;
+    }
+
+    public function deleteMedia(int $id): void
+    {
+        $userID = auth()->id();
+
+        $media = Media::where("id", $id)->where("user_id", $userID)->first();
+
+        if (!$media) {
+            throw new FailedGetMediaException();
+        }
+
+        $filePath = "/{$userID}/{$media->media_name}";
+
+        $deleteFromStorage =  Storage::disk('s3')->delete($filePath);
+
+        if (!$deleteFromStorage) {
+            throw new FailedDeleteMediaException();
+        }
+
+        $deleteFromDB = $media->delete();
+
+        if (!$deleteFromDB) {
+            throw new FailedDeleteMediaException();
+        }
     }
 }
