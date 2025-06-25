@@ -4,13 +4,13 @@ import { Button } from "@/components/atoms/Button";
 import { Input } from "@/components/atoms/Input";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useMedia } from "@/hooks/useMedia";
+import { useGetMedia } from "@/hooks/useMedia";
 import Image from "next/image";
 
 export default function Home() {
   const { user } = useCurrentUser();
   const { signout } = useAuth();
-  const { media, uploadMedia } = useMedia();
+  const { media, uploadMedia, deleteMedia } = useGetMedia();
 
   if (!user) {
     return;
@@ -27,14 +27,24 @@ export default function Home() {
           height={38}
           priority
         />
-        {media.map((e, idx) => (
-          <img
-            key={idx}
-            src={e.media_url}
-            width={200}
-            height={200}
-            style={{ objectFit: "cover", margin: "10px" }}
-          />
+        {media.map((media, idx) => (
+          <div key={idx}>
+            <img
+              key={idx}
+              src={media.media_url}
+              width={200}
+              height={200}
+              style={{ objectFit: "cover", margin: "10px" }}
+            />
+            <Button
+              label="Delete"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(media);
+                deleteMedia(media.id);
+              }}
+            />
+          </div>
         ))}
         <p>Welcome to storage app, {user.name}</p>
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
