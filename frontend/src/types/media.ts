@@ -1,4 +1,5 @@
 export type Media = {
+  id: number;
   user_id: number;
   media_name: string;
   media_url: string;
