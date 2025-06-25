@@ -10,4 +10,6 @@ interface MediaRepositoryInterface
     public function upload($file): Media;
 
     public function getMedia(): Collection;
+
+    public function deleteMedia(int $id): void;
 }

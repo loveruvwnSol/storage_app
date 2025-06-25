@@ -3,7 +3,7 @@ import { API_ROUTE, apiAxios } from "@/consts/api";
 import { Media } from "@/types/media";
 import { useEffect, useState } from "react";
 
-export const useMedia = () => {
+export const useGetMedia = () => {
   const [media, setMedia] = useState<Media[]>([]);
 
   useEffect(() => {
@@ -15,18 +15,17 @@ export const useMedia = () => {
       await csrfCookie();
       const response = await apiAxios.get(API_ROUTE.GET_MEDIA.PATH);
       if (response.status === 200) {
-        console.log(response.data);
         setMedia(response.data.media);
       }
     } catch (error) {
       console.log(error);
-      alert("メディアの取得に失敗しました。");
     }
   };
 
   const uploadMedia = async (file: File) => {
     try {
       await csrfCookie();
+
       const formData = new FormData();
       formData.append("file", file);
       const response = await apiAxios.post(
@@ -34,8 +33,8 @@ export const useMedia = () => {
         formData
       );
       if (response.status === 200) {
-        console.log(response.data);
-        setMedia((prev) => [...prev, response.data.media]);
+        alert("ファイルをアップロードしました");
+        setMedia([...media, response.data.media]);
       }
     } catch (error) {
       console.log(error);
@@ -43,5 +42,22 @@ export const useMedia = () => {
     }
   };
 
-  return { media, uploadMedia };
+  const deleteMedia = async (id: number) => {
+    try {
+      await csrfCookie();
+
+      const response = await apiAxios.delete(
+        API_ROUTE.DELETE_MEDIA.PATH + `/${id}`
+      );
+      if (response.status === 200) {
+        setMedia(media.filter((media) => media.id !== id));
+        alert("ファイルを削除しました");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("ファイルの削除に失敗しました");
+    }
+  };
+
+  return { media, uploadMedia, deleteMedia };
 };

@@ -34,6 +34,10 @@ export const API_ROUTE: { [name: string]: ApiRoute } = {
     PATH: "/api/media",
     METHOD: "POST",
   },
+  DELETE_MEDIA: {
+    PATH: "/api/media",
+    METHOD: "DELETE",
+  },
 } as const;
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;

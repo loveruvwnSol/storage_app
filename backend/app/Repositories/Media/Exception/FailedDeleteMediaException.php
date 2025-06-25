@@ -5,7 +5,7 @@ namespace App\Repositories\Media\Exception;
 use App\Exceptions\HttpExceptionInterface;
 use RuntimeException;
 
-class FailedGetMediaException extends RuntimeException implements HttpExceptionInterface
+class FailedDeleteMediaException extends RuntimeException implements HttpExceptionInterface 
 {
     public function getStatusCode(): int
     {
@@ -14,6 +14,6 @@ class FailedGetMediaException extends RuntimeException implements HttpExceptionI
 
     public function getResponseJson(): array
     {
-        return ["message" => "Failed to get media"];
+        return ["message" => "Failed to delete media"];
     }
 }
