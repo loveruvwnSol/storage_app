@@ -9,7 +9,7 @@ class FailedGetMediaException extends RuntimeException implements HttpExceptionI
 {
     public function getStatusCode(): int
     {
-        return 500;
+        return 404;
     }
 
     public function getResponseJson(): array
