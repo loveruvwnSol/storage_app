@@ -42,7 +42,7 @@ class MediaController extends Controller
     public function deleteMedia($id): JsonResponse
     {
 
-        $media = $this->mediaRepo->deleteMedia($id);
+        $this->mediaRepo->deleteMedia($id);
 
         return response()->json(["message" => "delete your media successful"]);
     }
