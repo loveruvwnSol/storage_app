@@ -1,13 +1,17 @@
+import Image from "next/image";
+import storageAppIcon from "../../images/storage_app_icon.png";
+
 type LogoProps = {
-  size: string;
+  size: number;
 };
 
 export const Logo: React.FC<LogoProps> = ({ size }) => {
   return (
-    <img
-      alt="storage app logo"
-      src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-      className={`mx-auto h-${size} w-auto`}
+    <Image
+      alt="storage app icon"
+      src={storageAppIcon}
+      width={size}
+      height={size}
     />
   );
 };
