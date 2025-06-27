@@ -1,13 +1,13 @@
-"use client";
-
 import { Sidebar } from "@/components/organisms/Sidebar";
-import { Home } from "@/components/templates/Home";
+import { MyStorage } from "@/components/templates/MyStorage";
 
-export default function Index() {
+const Index = () => {
   return (
     <div className="flex w-full h-full bg-gray-50">
       <Sidebar />
-      <Home />
+      <MyStorage />
     </div>
   );
-}
+};
+
+export default Index;

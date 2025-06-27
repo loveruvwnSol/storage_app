@@ -1,19 +1,27 @@
+import { ReactNode } from "react";
+
 type LinkProps = {
   description?: string;
   linkText?: string;
   href: string;
+  children?: ReactNode;
 };
 
-export const Link: React.FC<LinkProps> = ({ description, linkText, href }) => {
+export const Link: React.FC<LinkProps> = ({
+  description,
+  linkText,
+  href,
+  children,
+}) => {
   return (
-    <p className=" text-gray-500">
+    <div className="text-gray-500">
       {description}
       <a
         href={href}
-        className="font-semibold text-indigo-600 hover:text-indigo-500"
+        className="font-semibold text-indigo-400 hover:text-indigo-500"
       >
-        {linkText}
+        {children ? children : linkText}
       </a>
-    </p>
+    </div>
   );
 };

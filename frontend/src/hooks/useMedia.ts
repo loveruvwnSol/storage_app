@@ -3,7 +3,7 @@ import { API_ROUTE, apiAxios } from "@/consts/api";
 import { Media } from "@/types/media";
 import { useEffect, useState } from "react";
 
-export const useGetMedia = () => {
+export const useMedia = () => {
   const [media, setMedia] = useState<Media[]>([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const useGetMedia = () => {
         alert("ファイルを削除しました");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
       alert("ファイルの削除に失敗しました");
     }
   };
